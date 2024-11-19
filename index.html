@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deki Games</title>
+    <!-- External fonts and icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Your custom CSS -->
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="logo">DEKI GAMES</div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search games...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home View -->
+    <div id="home-view">
+        <div class="category-slider">
+            <div class="category-item active">All Games</div>
+            <div class="category-item">Arcade</div>
+            <div class="category-item">Puzzle</div>
+            <div class="category-item">Strategy</div>
+            <div class="category-item">Action</div>
+        </div>
+
+        <div class="games-grid">
+            <!-- Tic Tac Toe Card -->
+            <div class="game-card" data-category="strategy">
+                <div class="game-thumbnail">
+                    <i class="fas fa-hashtag fa-3x"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">Tic Tac Toe</h3>
+                    <p class="game-description">Classic game of X's and O's. Challenge your friends or play against AI.</p>
+                    <a href="#" class="play-button" onclick="showGame('tictactoe')">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Ping Pong Card -->
+            <div class="game-card" data-category="arcade">
+                <div class="game-thumbnail">
+                    <i class="fas fa-table-tennis-paddle-ball fa-3x"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">Ping Pong</h3>
+                    <p class="game-description">Test your reflexes in this classic arcade game.</p>
+                    <a href="#" class="play-button" onclick="showGame('pingpong')">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Snake Card -->
+            <div class="game-card" data-category="arcade">
+                <div class="game-thumbnail">
+                    <i class="fas fa-snake fa-3x"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">Snake</h3>
+                    <p class="game-description">Guide the snake to eat food and grow longer without hitting walls or itself.</p>
+                    <a href="#" class="play-button" onclick="showGame('snake')">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Memory Card -->
+            <div class="game-card" data-category="puzzle">
+                <div class="game-thumbnail">
+                    <i class="fas fa-memory fa-3x"></i>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">Memory Cards</h3>
+                    <p class="game-description">Test your memory by matching pairs of cards.</p>
+                    <a href="#" class="play-button" onclick="showGame('memory')">Play Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game View -->
+    <div id="game-view" style="display: none;">
+        <a class="back-button" onclick="backToHome()">
+            <i class="fas fa-arrow-left"></i> Back to Games
+        </a>
+
+        <!-- Tic Tac Toe Container -->
+        <div id="tictactoe" class="game-container" style="display: none;">
+            <h2>Tic Tac Toe</h2>
+            <div class="score-display">
+                <p>Player X Wins: <span id="scoreX">0</span></p>
+                <p>Player O Wins: <span id="scoreO">0</span></p>
+            </div>
+            <div class="board">
+                <div class="cell" onclick="makeMove(0)"></div>
+                <div class="cell" onclick="makeMove(1)"></div>
+                <div class="cell" onclick="makeMove(2)"></div>
+                <div class="cell" onclick="makeMove(3)"></div>
+                <div class="cell" onclick="makeMove(4)"></div>
+                <div class="cell" onclick="makeMove(5)"></div>
+                <div class="cell" onclick="makeMove(6)"></div>
+                <div class="cell" onclick="makeMove(7)"></div>
+                <div class="cell" onclick="makeMove(8)"></div>
+            </div>
+            <button class="play-button" onclick="resetTicTacToe()">Reset Game</button>
+        </div>
+
+        <!-- Ping Pong Container -->
+        <div id="pingpong" class="game-container" style="display: none;">
+            <h2>Ping Pong</h2>
+            <div class="score-display">
+                <p>Score: <span id="pingpongScore">0</span></p>
+                <p>High Score: <span id="pingpongHighScore">0</span></p>
+            </div>
+            <canvas id="pingpongCanvas" width="600" height="400"></canvas>
+            <button class="play-button" onclick="startPingPong()">Start Game</button>
+        </div>
+
+        <!-- Snake Container -->
+        <div id="snake" class="game-container" style="display: none;">
+            <h2>Snake Game</h2>
+            <div class="score-display">
+                <p>Score: <span id="snakeScore">0</span></p>
+                <p>High Score: <span id="snakeHighScore">0</span></p>
+            </div>
+            <canvas id="snakeCanvas" width="400" height="400"></canvas>
+            <button class="play-button" onclick="startSnake()">Start Game</button>
+        </div>
+
+        <!-- Memory Game Container -->
+        <div id="memory" class="game-container" style="display: none;">
+            <h2>Memory Card Game</h2>
+            <div class="score-display">
+                <p>Moves: <span id="memoryMoves">0</span></p>
+                <p>Best Score: <span id="memoryBest">∞</span></p>
+            </div>
+            <div class="memory-grid"></div>
+            <button class="play-button" onclick="startMemory()">New Game</button>
+        </div>
+    </div>
+
+    <!-- Score Modal -->
+    <div id="scoreModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>New High Score!</h3>
+            <input type="text" id="playerName" placeholder="Enter your name">
+            <button class="play-button" onclick="submitScore()">Submit Score</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="FUNCTION.js"></script>
+</body>
+</html>
